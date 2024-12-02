@@ -1,0 +1,68 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def add(self, value):
+        if self.root is None:
+            self.root = Node(value)
+        else:
+            self._add_recursive(self.root, value)
+
+    def _add_recursive(self, current, value):
+        if value < current.value:
+            if current.left is None:
+                current.left = Node(value)
+            else:
+                self._add_recursive(current.left, value)
+        else:
+            if current.right is None:
+                current.right = Node(value)
+            else:
+                self._add_recursive(current.right, value)
+
+    def hasilGanjil(self):
+        return f"Jumlah data ganjil: {self._sum_odd(self.root)}"
+
+    def hasilGenap(self):
+        return f"Jumlah data genap: {self._sum_even(self.root)}"
+
+    def _sum_odd(self, node):
+        if node is None:
+            return 0
+        total = 0
+        if node.value % 2 != 0:
+            total += node.value
+        total += self._sum_odd(node.left)
+        total += self._sum_odd(node.right)
+        return total
+
+    def _sum_even(self, node):
+        if node is None:
+            return 0
+        total = 0
+        if node.value % 2 == 0:
+            total += node.value
+        total += self._sum_even(node.left)
+        total += self._sum_even(node.right)
+        return total
+
+if __name__ == '__main__':
+    binaryT = BinaryTree()
+    binaryT.add(5)
+    binaryT.add(4)
+    binaryT.add(3)
+    binaryT.add(9)
+    binaryT.add(8)
+    binaryT.add(6)
+    binaryT.add(7)
+    binaryT.add(11)
+    binaryT.add(10)
+    print()
+    print(binaryT.hasilGanjil())
+    print(binaryT.hasilGenap())
